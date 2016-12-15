@@ -129,6 +129,9 @@
     </ApplicationDefinition>
     <Compile Include="AwesomiumController.cs" />
     <Compile Include="CefSharpController.cs" />
+    <Compile Include="PerformanceWindow.xaml.cs">
+      <DependentUpon>PerformanceWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WebBrowserController.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -144,6 +147,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="PerformanceWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\BureauBlack_Defect_Both.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

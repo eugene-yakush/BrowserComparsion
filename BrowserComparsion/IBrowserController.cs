@@ -11,6 +11,7 @@ namespace BrowserComparsion
         string CurrentUrl { get; }
 
         void Navigate(string url);
+        void Navigate(string url, Action<int> completionPeriodCallback);
 
         bool CanGoBack { get; }
         void Back();

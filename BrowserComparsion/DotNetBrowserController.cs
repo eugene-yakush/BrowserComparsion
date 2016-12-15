@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -11,16 +13,14 @@ using DotNetBrowser.WPF;
 
 namespace BrowserComparsion
 {
-    public class DotNetBrowserController : IBrowserController
+    public class DotNetBrowserController : BaseWebBrowserController
     {
         private readonly WPFBrowserView _browserView;
-        
-        public event Action ActionsUpdated;
 
         public DotNetBrowserController(WPFBrowserView browserView)
         {
             _browserView = browserView;
-            _browserView.DocumentLoadedInMainFrameEvent += OnActionsUpdated;
+            _browserView.DocumentLoadedInMainFrameEvent += OnPageLoaded;
             _browserView.StatusChangedEvent += OnActionsUpdated;
             _browserView.TitleChangedEvent += OnActionsUpdated;
         }
@@ -30,36 +30,52 @@ namespace BrowserComparsion
             OnActionsUpdated();
         }
 
-        protected virtual void OnActionsUpdated()
+        private void OnPageLoaded(object sender, EventArgs e)
         {
-            ActionsUpdated?.Invoke();
+            Navigated();
+            OnActionsUpdated();
         }
 
-        public string CurrentUrl => _browserView.URL;
+        public override string CurrentUrl => _browserView.URL;
 
-        public void Navigate(string url)
+        public override void Navigate(string url)
         {
-            _browserView.Browser.LoadURL(url);
+            base.Navigate(url);
+            App.Current.Dispatcher.Invoke((Action)(() =>
+            {
+                try
+                {
+                    _browserView.Browser.LoadURL(url);
+                }
+                catch (Exception ex)
+                {
+
+                    throw;
+                }
+
+            }
+            ));
         }
 
-        public bool CanGoBack => _browserView.Browser.CanGoBack();
-        public void Back()
+        public override bool CanGoBack => _browserView.Browser.CanGoBack();
+
+        public override void Back()
         {
             _browserView.Browser.GoBack();
         }
 
-        public bool CanGoForward => _browserView.Browser.CanGoForward();
-        public void Forward()
+        public override bool CanGoForward => _browserView.Browser.CanGoForward();
+        public override void Forward()
         {
             _browserView.Browser.GoForward();
         }
 
-        public void Refresh()
+        public override void Refresh()
         {
             _browserView.Browser.Reload();
         }
 
-        public List<BrowserFeature> Features { get; } = new List<BrowserFeature>()
+        public override List<BrowserFeature> Features { get; } = new List<BrowserFeature>()
         {
             BrowserFeature.JsExecute,
             BrowserFeature.JsExecuteWithResult,
@@ -69,27 +85,27 @@ namespace BrowserComparsion
             BrowserFeature.SetDom
         };
 
-        public void ExecuteJavascript(string script)
+        public override void ExecuteJavascript(string script)
         {
             _browserView.Browser.ExecuteJavaScript(script);
         }
 
-        public string ExecuteJavascriptWithResult(string script)
+        public override string ExecuteJavascriptWithResult(string script)
         {
             return _browserView.Browser.ExecuteJavaScriptAndReturnValue(script).ToString();
         }
 
-        public string GetHtml()
+        public override string GetHtml()
         {
             return _browserView.Browser.GetHTML();
         }
 
-        public void SetHtml(string html)
+        public override void SetHtml(string html)
         {
             _browserView.Browser.LoadHTML(html);
         }
 
-        public List<string> GetDomById(string id)
+        public override List<string> GetDomById(string id)
         {
             List<string> res = new List<string>();
             DOMElement element = _browserView.Browser.GetDocument().GetElementById(id);
@@ -98,19 +114,100 @@ namespace BrowserComparsion
             return res;
         }
 
-        public List<string> GetDomByTag(string id)
+        public override List<string> GetDomByTag(string id)
         {
             return _browserView.Browser.GetDocument().GetElementsByTagName(id).Select(e => (e as DOMElement)?.InnerHTML?.Trim()).ToList();
         }
 
-        public List<string> GetDomByClass(string id)
+        public override List<string> GetDomByClass(string id)
         {
             return _browserView.Browser.GetDocument().GetElementsByClassName(id).Select(e => (e as DOMElement)?.InnerHTML?.Trim()).ToList();
         }
 
-        public void SetDomById(string id, string html)
+        public override void SetDomById(string id, string html)
         {
             _browserView.Browser.GetDocument().GetElementById(id).SetInnerHTML(html);
+        }
+    }
+
+    [Serializable]
+    public class PerformanceEntry
+    {
+        public string Url { get; set; }
+
+        [DisplayName("DotNetBrowser")]
+        public int DotNetBrowserPeriod { get; set; }
+
+        [DisplayName("WebBrowser")]
+        public int WebBrowserPeriod { get; set; }
+
+        [DisplayName("Awesomium")]
+        public int AwesomiumPeriod { get; set; }
+
+        [DisplayName("CefSharp")]
+        public int CefSharpPeriod { get; set; }        
+    }
+
+    public class PerformanceCounter
+    {
+        private List<IBrowserController> controllers;
+        private bool abort = false;
+
+        public bool Running { get; private set; }
+        public event Action DataUpdated;        
+
+        public PerformanceCounter(List<IBrowserController> controllers)
+        {
+            this.controllers = controllers;
+        }
+
+        public void Measure(List<PerformanceEntry> entries)
+        {
+            Task.Run(() =>
+            {
+                abort = false;
+                Running = true;
+                ManualResetEvent controllerComplete = new ManualResetEvent(false);
+
+
+                foreach (PerformanceEntry performanceEntry in entries)
+                {
+                    foreach (IBrowserController browserController in controllers)
+                    {
+                        Action<int> resultWriteAction = null;
+                        if (browserController is DotNetBrowserController) resultWriteAction = (result) => performanceEntry.DotNetBrowserPeriod = result;
+                        if (browserController is WebBrowserController) resultWriteAction = (result) => performanceEntry.WebBrowserPeriod = result;
+                        if (browserController is AwesomiumController) resultWriteAction = (result) => performanceEntry.AwesomiumPeriod = result;
+                        if (browserController is CefSharpController) resultWriteAction = (result) => performanceEntry.CefSharpPeriod = result;
+
+                        controllerComplete.Reset();
+                        browserController.Navigate(performanceEntry.Url, (period) => { resultWriteAction(period); controllerComplete.Set(); });
+                        bool normal = controllerComplete.WaitOne(30000);
+                        if (!normal)
+                        {
+                            resultWriteAction(30000);
+                            controllerComplete.Set();
+                        }
+                        OnDataUpdated();
+
+                        if (abort) break;
+                    }
+                    if (abort) break;
+                }
+
+                Running = false;
+                OnDataUpdated();
+            });
+        }
+
+        protected virtual void OnDataUpdated()
+        {
+            DataUpdated?.Invoke();
+        }
+
+        public void Abort()
+        {
+            abort = true;
         }
     }
 }

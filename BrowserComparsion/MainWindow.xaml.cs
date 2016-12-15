@@ -167,7 +167,7 @@ namespace BrowserComparsion
         private void PagesListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             string targetUrl = ((e.Source as ListBox)?.SelectedItem as ListBoxItem)?.Content?.ToString();
-            if(!TrimUrlProtocol(CurrentController.CurrentUrl).Equals(TrimUrlProtocol(targetUrl), StringComparison.OrdinalIgnoreCase))
+            if(!string.IsNullOrWhiteSpace(targetUrl) && !TrimUrlProtocol(CurrentController.CurrentUrl).Equals(TrimUrlProtocol(targetUrl), StringComparison.OrdinalIgnoreCase))
                 CurrentController.Navigate(targetUrl);
 
             UnselectPageInBox();
@@ -242,6 +242,8 @@ namespace BrowserComparsion
 
         private void ProfilerBtn_OnClick(object sender, RoutedEventArgs e)
         {
+            PerformanceWindow profilerWindow = new PerformanceWindow(_controllers.Values.ToList());
+            profilerWindow.ShowDialog();
         }
     }
 }

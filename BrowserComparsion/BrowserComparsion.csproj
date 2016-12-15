@@ -128,7 +128,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AwesomiumController.cs" />
+    <Compile Include="BaseWebBrowserController.cs" />
     <Compile Include="CefSharpController.cs" />
+    <Compile Include="PerformanceCounter.cs" />
+    <Compile Include="PerformanceEntry.cs" />
     <Compile Include="PerformanceWindow.xaml.cs">
       <DependentUpon>PerformanceWindow.xaml</DependentUpon>
     </Compile>

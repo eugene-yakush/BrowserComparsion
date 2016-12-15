@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Threading;
 using DotNetBrowser;
 using DotNetBrowser.DOM;
@@ -127,87 +124,6 @@ namespace BrowserComparsion
         public override void SetDomById(string id, string html)
         {
             _browserView.Browser.GetDocument().GetElementById(id).SetInnerHTML(html);
-        }
-    }
-
-    [Serializable]
-    public class PerformanceEntry
-    {
-        public string Url { get; set; }
-
-        [DisplayName("DotNetBrowser")]
-        public int DotNetBrowserPeriod { get; set; }
-
-        [DisplayName("WebBrowser")]
-        public int WebBrowserPeriod { get; set; }
-
-        [DisplayName("Awesomium")]
-        public int AwesomiumPeriod { get; set; }
-
-        [DisplayName("CefSharp")]
-        public int CefSharpPeriod { get; set; }        
-    }
-
-    public class PerformanceCounter
-    {
-        private List<IBrowserController> controllers;
-        private bool abort = false;
-
-        public bool Running { get; private set; }
-        public event Action DataUpdated;        
-
-        public PerformanceCounter(List<IBrowserController> controllers)
-        {
-            this.controllers = controllers;
-        }
-
-        public void Measure(List<PerformanceEntry> entries)
-        {
-            Task.Run(() =>
-            {
-                abort = false;
-                Running = true;
-                ManualResetEvent controllerComplete = new ManualResetEvent(false);
-
-
-                foreach (PerformanceEntry performanceEntry in entries)
-                {
-                    foreach (IBrowserController browserController in controllers)
-                    {
-                        Action<int> resultWriteAction = null;
-                        if (browserController is DotNetBrowserController) resultWriteAction = (result) => performanceEntry.DotNetBrowserPeriod = result;
-                        if (browserController is WebBrowserController) resultWriteAction = (result) => performanceEntry.WebBrowserPeriod = result;
-                        if (browserController is AwesomiumController) resultWriteAction = (result) => performanceEntry.AwesomiumPeriod = result;
-                        if (browserController is CefSharpController) resultWriteAction = (result) => performanceEntry.CefSharpPeriod = result;
-
-                        controllerComplete.Reset();
-                        browserController.Navigate(performanceEntry.Url, (period) => { resultWriteAction(period); controllerComplete.Set(); });
-                        bool normal = controllerComplete.WaitOne(30000);
-                        if (!normal)
-                        {
-                            resultWriteAction(30000);
-                            controllerComplete.Set();
-                        }
-                        OnDataUpdated();
-
-                        if (abort) break;
-                    }
-                    if (abort) break;
-                }
-
-                Running = false;
-                OnDataUpdated();
-            });
-        }
-
-        protected virtual void OnDataUpdated()
-        {
-            DataUpdated?.Invoke();
-        }
-
-        public void Abort()
-        {
-            abort = true;
         }
     }
 }

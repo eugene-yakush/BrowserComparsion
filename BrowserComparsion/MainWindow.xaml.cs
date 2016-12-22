@@ -65,6 +65,7 @@ namespace BrowserComparsion
 
         private async Task InitializeBrowserPages()
         {
+            MainStatusBar.Background = Brushes.Red;
             UpdateStatusText("Initializing components...");
 
             foreach (KeyValuePair<TabItem, IBrowserController> controller in _controllers)
@@ -76,6 +77,7 @@ namespace BrowserComparsion
             BrowserTabCollection.SelectedItem = BrowserTabCollection.Items[0];
 
             _initialized = true;
+            MainStatusBar.Background = (Brush)FindResource("AccentColorBrush");
             UpdateStatusText("Ready");
         }
 

@@ -8,7 +8,7 @@
         xmlns:wpf1="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         mc:Ignorable="d"
-        Title="MainWindow" Height="768" Width="1366"
+        Title="Browser Comparsion" Height="768" Width="1366"
         Loaded="MainWindow_OnLoaded">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -21,7 +21,7 @@
         </Grid.RowDefinitions>
         <StackPanel Grid.Column="0" Grid.Row="0">
             <StackPanel>
-                <Label Content="Features" Background="{DynamicResource AccentColorBrush}"></Label>
+                <Label Content="Features" FontSize="14" Background="{DynamicResource AccentColorBrush}"></Label>
                 <Expander Header="Pages" Name="PagesExpander" Expanded="Expander_OnExpanded">
                     <ListBox Name="PagesListBox" SelectionChanged="PagesListBox_SelectionChanged" Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Expander}}, Path=ActualWidth}">
                         <ListBoxItem>http://teamdev.com/</ListBoxItem>
@@ -122,7 +122,7 @@
                 </DockPanel>
             </TabItem>
         </TabControl>
-        <StatusBar Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3">
+        <StatusBar Name="MainStatusBar" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
             <Label Content="Ready" Name="StatusLabel" FontSize="12" ></Label>
         </StatusBar>
     </Grid>

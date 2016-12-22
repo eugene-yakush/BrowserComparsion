@@ -25,7 +25,12 @@ namespace BrowserComparsion
 
         private Dictionary<TabItem, IBrowserController> _controllers;
         private IBrowserController CurrentController => _controllers?[BrowserTabCollection.SelectedItem as TabItem];
-        
+
+        private DotNetBrowserController dotNetBrowserController;
+        private WebBrowserController webBrowserController;
+        private AwesomiumController awesomiumController;
+        private CefSharpController cefSharpController;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -39,10 +44,10 @@ namespace BrowserComparsion
 
         private void InitializeBrowserControllers()
         {
-            DotNetBrowserController dotNetBrowserController = new DotNetBrowserController(DotNetBrowserView);
-            WebBrowserController webBrowserController = new WebBrowserController(WebBrowserView);
-            AwesomiumController awesomiumController = new AwesomiumController(AwesomiumView);
-            CefSharpController cefSharpController = new CefSharpController(CefSharpView);
+            dotNetBrowserController = new DotNetBrowserController(DotNetBrowserView);
+            webBrowserController = new WebBrowserController(WebBrowserView);
+            awesomiumController = new AwesomiumController(AwesomiumView);
+            cefSharpController = new CefSharpController(CefSharpView);
 
             dotNetBrowserController.ActionsUpdated += UpdateAvailableActions;
             webBrowserController.ActionsUpdated += UpdateAvailableActions;
@@ -51,10 +56,10 @@ namespace BrowserComparsion
 
             _controllers = new Dictionary<TabItem, IBrowserController>()
             {
-                {DotNetBrowserView.Parent as TabItem, dotNetBrowserController },
-                {WebBrowserView.Parent as TabItem,  webBrowserController},
-                {AwesomiumView.Parent as TabItem, awesomiumController },
-                {CefSharpView.Parent as TabItem, cefSharpController }
+                {BrowserTabCollection.Items[0] as TabItem, dotNetBrowserController},
+                {BrowserTabCollection.Items[1] as TabItem, webBrowserController},
+                {BrowserTabCollection.Items[2] as TabItem, awesomiumController},
+                {BrowserTabCollection.Items[3] as TabItem, cefSharpController}
             };
         }
 
@@ -97,21 +102,67 @@ namespace BrowserComparsion
         {
             if (!_initialized)
             {
-                AddressBox.IsEnabled = false;
-                BackBtn.IsEnabled = false;
-                RefreshBtn.IsEnabled = false;
-                ForwardBtn.IsEnabled = false;
-                NavigateBtn.IsEnabled = false;
+                DotNetBrowser_AddressBox.IsEnabled = false;
+                DotNetBrowser_BackBtn.IsEnabled = false;
+                DotNetBrowser_RefreshBtn.IsEnabled = false;
+                DotNetBrowser_ForwardBtn.IsEnabled = false;
+
+                WebBrowser_AddressBox.IsEnabled = false;
+                WebBrowser_BackBtn.IsEnabled = false;
+                WebBrowser_RefreshBtn.IsEnabled = false;
+                WebBrowser_ForwardBtn.IsEnabled = false;
+
+                Awesomium_AddressBox.IsEnabled = false;
+                Awesomium_BackBtn.IsEnabled = false;
+                Awesomium_RefreshBtn.IsEnabled = false;
+                Awesomium_ForwardBtn.IsEnabled = false;
+
+                CefSharp_AddressBox.IsEnabled = false;
+                CefSharp_BackBtn.IsEnabled = false;
+                CefSharp_RefreshBtn.IsEnabled = false;
+                CefSharp_ForwardBtn.IsEnabled = false;
             }
             else if (CurrentController != null)
             {
-                RefreshBtn.IsEnabled = true;
-                NavigateBtn.IsEnabled = true;
-                AddressBox.IsEnabled = true;
+                if (CurrentController is DotNetBrowserController)
+                {
+                    DotNetBrowser_RefreshBtn.IsEnabled = true;
+                    DotNetBrowser_AddressBox.IsEnabled = true;
 
-                AddressBox.Text = CurrentController.CurrentUrl;
-                BackBtn.IsEnabled = CurrentController.CanGoBack;
-                ForwardBtn.IsEnabled = CurrentController.CanGoForward;
+                    DotNetBrowser_AddressBox.Text = CurrentController.CurrentUrl;
+                    DotNetBrowser_BackBtn.IsEnabled = CurrentController.CanGoBack;
+                    DotNetBrowser_ForwardBtn.IsEnabled = CurrentController.CanGoForward;
+                }
+
+                if (CurrentController is WebBrowserController)
+                {
+                    WebBrowser_RefreshBtn.IsEnabled = true;
+                    WebBrowser_AddressBox.IsEnabled = true;
+
+                    WebBrowser_AddressBox.Text = CurrentController.CurrentUrl;
+                    WebBrowser_BackBtn.IsEnabled = CurrentController.CanGoBack;
+                    WebBrowser_ForwardBtn.IsEnabled = CurrentController.CanGoForward;
+                }
+
+                if (CurrentController is AwesomiumController)
+                {
+                    Awesomium_RefreshBtn.IsEnabled = true;
+                    Awesomium_AddressBox.IsEnabled = true;
+
+                    Awesomium_AddressBox.Text = CurrentController.CurrentUrl;
+                    Awesomium_BackBtn.IsEnabled = CurrentController.CanGoBack;
+                    Awesomium_ForwardBtn.IsEnabled = CurrentController.CanGoForward;
+                }
+
+                if (CurrentController is CefSharpController)
+                {
+                    CefSharp_RefreshBtn.IsEnabled = true;
+                    CefSharp_AddressBox.IsEnabled = true;
+
+                    CefSharp_AddressBox.Text = CurrentController.CurrentUrl;
+                    CefSharp_BackBtn.IsEnabled = CurrentController.CanGoBack;
+                    CefSharp_ForwardBtn.IsEnabled = CurrentController.CanGoForward;
+                }
             }
         }
 
@@ -136,38 +187,78 @@ namespace BrowserComparsion
                 JsExecuteResultCheckBox.IsEnabled = CurrentController.Features.Contains(BrowserFeature.JsExecuteWithResult);
                 GetHtmlBtn.IsEnabled = CurrentController.Features.Contains(BrowserFeature.GetHtml);
                 SetHtmlBtn.IsEnabled = CurrentController.Features.Contains(BrowserFeature.SetHtml);
-                SearchDomByIdBtn.IsEnabled 
-                    = SearchDomByclassBtn.IsEnabled 
-                    = SearchDomByTagBtn.IsEnabled 
-                    = CurrentController.Features.Contains(BrowserFeature.GetDom);
+                SearchDomByIdBtn.IsEnabled
+                    = SearchDomByclassBtn.IsEnabled
+                        = SearchDomByTagBtn.IsEnabled
+                            = CurrentController.Features.Contains(BrowserFeature.GetDom);
                 SetDomValueBtn.IsEnabled = CurrentController.Features.Contains(BrowserFeature.SetDom);
             }
         }
 
-        private void BackBtn_Click(object sender, RoutedEventArgs e)
+        private void DotNetBrowser_BackBtn_Click(object sender, RoutedEventArgs e)
         {
-            CurrentController?.Back();
+            dotNetBrowserController?.Back();
         }
 
-        private void RefreshBtn_Click(object sender, RoutedEventArgs e)
+        private void DotNetBrowser_RefreshBtn_Click(object sender, RoutedEventArgs e)
         {
-            CurrentController?.Refresh();
+            dotNetBrowserController?.Refresh();
         }
 
-        private void ForwardBtn_Click(object sender, RoutedEventArgs e)
+        private void DotNetBrowser_ForwardBtn_Click(object sender, RoutedEventArgs e)
         {
-            CurrentController?.Forward();
+            dotNetBrowserController?.Forward();
         }
 
-        private void NavigateBtn_Click(object sender, RoutedEventArgs e)
+        private void WebBrowser_BackBtn_Click(object sender, RoutedEventArgs e)
         {
-            CurrentController?.Navigate(AddressBox.Text);
+            webBrowserController?.Back();
+        }
+
+        private void WebBrowser_RefreshBtn_Click(object sender, RoutedEventArgs e)
+        {
+            webBrowserController?.Refresh();
+        }
+
+        private void WebBrowser_ForwardBtn_Click(object sender, RoutedEventArgs e)
+        {
+            webBrowserController?.Forward();
+        }
+
+        private void Awesomium_BackBtn_Click(object sender, RoutedEventArgs e)
+        {
+            awesomiumController?.Back();
+        }
+
+        private void Awesomium_RefreshBtn_Click(object sender, RoutedEventArgs e)
+        {
+            awesomiumController?.Refresh();
+        }
+
+        private void Awesomium_ForwardBtn_Click(object sender, RoutedEventArgs e)
+        {
+            awesomiumController?.Forward();
+        }
+
+        private void CefSharp_BackBtn_Click(object sender, RoutedEventArgs e)
+        {
+            cefSharpController?.Back();
+        }
+
+        private void CefSharp_RefreshBtn_Click(object sender, RoutedEventArgs e)
+        {
+            cefSharpController?.Refresh();
+        }
+
+        private void CefSharp_ForwardBtn_Click(object sender, RoutedEventArgs e)
+        {
+            cefSharpController?.Forward();
         }
 
         private void PagesListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             string targetUrl = ((e.Source as ListBox)?.SelectedItem as ListBoxItem)?.Content?.ToString();
-            if(!string.IsNullOrWhiteSpace(targetUrl) && !TrimUrlProtocol(CurrentController.CurrentUrl).Equals(TrimUrlProtocol(targetUrl), StringComparison.OrdinalIgnoreCase))
+            if (!string.IsNullOrWhiteSpace(targetUrl) && !TrimUrlProtocol(CurrentController.CurrentUrl).Equals(TrimUrlProtocol(targetUrl), StringComparison.OrdinalIgnoreCase))
                 CurrentController.Navigate(targetUrl);
 
             UnselectPageInBox();
@@ -185,9 +276,9 @@ namespace BrowserComparsion
         {
             if (CurrentController.Features.Contains(BrowserFeature.JsExecute))
             {
-                if (JsExecuteResultCheckBox.IsChecked != null 
-                    && (CurrentController.Features.Contains(BrowserFeature.JsExecuteWithResult) 
-                    && JsExecuteResultCheckBox.IsChecked.Value))
+                if (JsExecuteResultCheckBox.IsChecked != null
+                    && (CurrentController.Features.Contains(BrowserFeature.JsExecuteWithResult)
+                        && JsExecuteResultCheckBox.IsChecked.Value))
                 {
                     Dispatcher.Invoke(() => { JsExecuteResult.Text = CurrentController.ExecuteJavascriptWithResult(JsExecuteTextBox.Text); });
                 }
@@ -244,6 +335,26 @@ namespace BrowserComparsion
         {
             PerformanceWindow profilerWindow = new PerformanceWindow(_controllers.Values.ToList());
             profilerWindow.ShowDialog();
+        }
+
+        private void Expander_OnExpanded(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                List<Expander> expanders = new List<Expander>() { PagesExpander, HtmlExpander, JsExpander, DomManipulationExpander, DomSearchExpander };
+                foreach (Expander expander in expanders)
+                {
+                    if (expander != null && expander != sender)
+                    {
+                        expander.IsExpanded = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                
+                throw;
+            }
         }
     }
 }

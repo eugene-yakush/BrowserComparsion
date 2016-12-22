@@ -10,7 +10,7 @@ namespace BrowserComparsion
     {
         public event Action ActionsUpdated;
         protected ManualResetEvent loadedResetEvent = new ManualResetEvent(false);
-        public virtual string CurrentUrl { get; }
+        public virtual string CurrentUrl { get; }        
 
         public virtual void Navigate(string url)
         {

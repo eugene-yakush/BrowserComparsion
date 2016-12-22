@@ -17,25 +17,16 @@
             <ColumnDefinition Width="75*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="32"></RowDefinition>
         </Grid.RowDefinitions>
         <GridSplitter Width="5" Grid.Column="1" Grid.RowSpan="3" ResizeDirection="Columns" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0"></GridSplitter>
-        <GridSplitter ResizeDirection="Rows" Grid.Column="2" Grid.Row="1" Width="Auto" Height="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0"/>
-        <DockPanel Grid.Column="2" Grid.Row="0" LastChildFill="True">
-            <Button Content="  &lt;  " DockPanel.Dock="Left" Name="BackBtn" Click="BackBtn_Click"></Button>
-            <Button Content="  Refresh  " DockPanel.Dock="Left" Name="RefreshBtn" Click="RefreshBtn_Click"></Button>
-            <Button Content="  &gt;  " DockPanel.Dock="Left" Name="ForwardBtn" Click="ForwardBtn_Click"></Button>
-            <Button Content="  GO >  " Margin="10 0 0 0" Name="NavigateBtn" Click="NavigateBtn_Click"></Button>
-            <TextBox HorizontalAlignment="Stretch" Margin="5 0 5 0" Name="AddressBox"></TextBox>
-        </DockPanel>
-        <ScrollViewer Grid.Column="0" Grid.Row="0"  Grid.RowSpan="3">
+        
+        <StackPanel Grid.Column="0" Grid.Row="0">
             <StackPanel>
-                <Label Content="Features"></Label>
+                <Label Content="Features" Background="CornflowerBlue"></Label>
                 <Button Content="Profiler" Click="ProfilerBtn_OnClick"></Button>
-                <Expander Header="Pages" IsExpanded="True">
+                <Expander Header="Pages" IsExpanded="True" Name="PagesExpander" Expanded="Expander_OnExpanded">
                     <ListBox Name="PagesListBox" SelectionChanged="PagesListBox_SelectionChanged" Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Expander}}, Path=ActualWidth}">
                         <ListBoxItem>http://teamdev.com/</ListBoxItem>
                         <ListBoxItem>http://teamdev.com/dotnetbrowser</ListBoxItem>
@@ -43,7 +34,7 @@
                         <ListBoxItem>http://google.com/</ListBoxItem>
                     </ListBox>
                 </Expander>
-                <Expander Header="JavaScript" IsExpanded="True">
+                <Expander Header="JavaScript" Name="JsExpander" Expanded="Expander_OnExpanded">
                     <StackPanel HorizontalAlignment="Stretch" Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Expander}}, Path=ActualWidth}">
                         <Label Content="Execute script:" Foreground="Black"></Label>
                         <TextBox Name="JsExecuteTextBox" AcceptsReturn="True" TextWrapping="Wrap" Height="100" HorizontalAlignment="Stretch"></TextBox>
@@ -55,14 +46,14 @@
                         <Button Name="ExecuteJsBtn" Click="ExecuteJsBtn_Click">Execute</Button>
                     </StackPanel>
                 </Expander>
-                <Expander Header="HTML Manipulation" IsExpanded="True">
+                <Expander Header="HTML Manipulation" Name="HtmlExpander" Expanded="Expander_OnExpanded">
                     <StackPanel Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Expander}}, Path=ActualWidth}">
                         <Button Name="GetHtmlBtn" Click="GetHtmlBtn_OnClick">Get HTML</Button>
                         <TextBox Name="HtmlTextBox" Height="300" AcceptsReturn="True" TextWrapping="Wrap"></TextBox>
                         <Button Name="SetHtmlBtn" Click="SetHtmlBtn_OnClick">Set HTML</Button>
                     </StackPanel>
                 </Expander>
-                <Expander Header="DOM search" IsExpanded="True">
+                <Expander Header="DOM search" Name="DomSearchExpander" Expanded="Expander_OnExpanded">
                     <StackPanel Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Expander}}, Path=ActualWidth}">
                         <DockPanel LastChildFill="True">
                             <Label Content="Search element: " Foreground="Black"></Label>
@@ -77,7 +68,7 @@
                         <ListBox Name="DomSearchResultsListBox" Height="200" HorizontalAlignment="Stretch"></ListBox>
                     </StackPanel>
                 </Expander>
-                <Expander Header="DOM manipulation" IsExpanded="True">
+                <Expander Header="DOM manipulation" Name="DomManipulationExpander" Expanded="Expander_OnExpanded">
                     <StackPanel Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Expander}}, Path=ActualWidth}">
                         <DockPanel LastChildFill="True">
                             <Label Content="Target element Id: " Foreground="Black"></Label>
@@ -91,22 +82,54 @@
                     </StackPanel>
                 </Expander>
             </StackPanel>
-        </ScrollViewer>
-        <TabControl Grid.Column="2" Grid.Row="2" Name="BrowserTabCollection" SelectionChanged="Selector_OnSelectionChanged">
+        </StackPanel>
+        <TabControl Grid.Column="2" Grid.Row="0" Name="BrowserTabCollection" SelectionChanged="Selector_OnSelectionChanged">
             <TabItem Header="DotNetBrowser">
-                <wpf:WPFBrowserView Name="DotNetBrowserView" URL="http://teamdev.com/dotnetbrowser" BrowserType="HEAVYWEIGHT"></wpf:WPFBrowserView>
+                <DockPanel>
+                    <DockPanel DockPanel.Dock="Top" LastChildFill="True" Height="24" Margin="0,0,0,5">
+                        <Button Content="  &lt;  " DockPanel.Dock="Left" Name="DotNetBrowser_BackBtn" Click="DotNetBrowser_BackBtn_Click"></Button>
+                        <Button Content="  Refresh  " DockPanel.Dock="Left" Name="DotNetBrowser_RefreshBtn" Click="DotNetBrowser_RefreshBtn_Click"></Button>
+                        <Button Content="  &gt;  " DockPanel.Dock="Left" Name="DotNetBrowser_ForwardBtn" Click="DotNetBrowser_ForwardBtn_Click"></Button>
+                        <TextBox HorizontalAlignment="Stretch" Margin="5 0 5 0" Name="DotNetBrowser_AddressBox"></TextBox>
+                    </DockPanel>
+                    <wpf:WPFBrowserView Name="DotNetBrowserView" URL="http://teamdev.com/dotnetbrowser" BrowserType="HEAVYWEIGHT"></wpf:WPFBrowserView>    
+                </DockPanel>
             </TabItem>
             <TabItem Header="WebBrowser">
-                <WebBrowser Name="WebBrowserView" Source="http://teamdev.com/dotnetbrowser"></WebBrowser>
+                <DockPanel>
+                    <DockPanel DockPanel.Dock="Top" LastChildFill="True" Height="24" Margin="0,0,0,5">
+                        <Button Content="  &lt;  " DockPanel.Dock="Left" Name="WebBrowser_BackBtn" Click="WebBrowser_BackBtn_Click"></Button>
+                        <Button Content="  Refresh  " DockPanel.Dock="Left" Name="WebBrowser_RefreshBtn" Click="WebBrowser_RefreshBtn_Click"></Button>
+                        <Button Content="  &gt;  " DockPanel.Dock="Left" Name="WebBrowser_ForwardBtn" Click="WebBrowser_ForwardBtn_Click"></Button>
+                        <TextBox HorizontalAlignment="Stretch" Margin="5 0 5 0" Name="WebBrowser_AddressBox"></TextBox>
+                    </DockPanel>
+                    <WebBrowser Name="WebBrowserView" Source="http://teamdev.com/dotnetbrowser"></WebBrowser>
+                </DockPanel>
             </TabItem>
             <TabItem Header="Awesomium">
-                <awe:WebControl Name="AwesomiumView" Source="http://teamdev.com/dotnetbrowser"/>
+                <DockPanel>
+                    <DockPanel DockPanel.Dock="Top" LastChildFill="True" Height="24" Margin="0,0,0,5">
+                        <Button Content="  &lt;  " DockPanel.Dock="Left" Name="Awesomium_BackBtn" Click="Awesomium_BackBtn_Click"></Button>
+                        <Button Content="  Refresh  " DockPanel.Dock="Left" Name="Awesomium_RefreshBtn" Click="Awesomium_RefreshBtn_Click"></Button>
+                        <Button Content="  &gt;  " DockPanel.Dock="Left" Name="Awesomium_ForwardBtn" Click="Awesomium_ForwardBtn_Click"></Button>
+                        <TextBox HorizontalAlignment="Stretch" Margin="5 0 5 0" Name="Awesomium_AddressBox"></TextBox>
+                    </DockPanel>
+                    <awe:WebControl Name="AwesomiumView" Source="http://teamdev.com/dotnetbrowser"/>
+                </DockPanel>
             </TabItem>
             <TabItem Header="CefSharp">
-                <wpf1:ChromiumWebBrowser Name="CefSharpView" Address="http://teamdev.com/dotnetbrowser"/>
+                <DockPanel>
+                    <DockPanel DockPanel.Dock="Top" LastChildFill="True" Height="24" Margin="0,0,0,5">
+                        <Button Content="  &lt;  " DockPanel.Dock="Left" Name="CefSharp_BackBtn" Click="CefSharp_BackBtn_Click"></Button>
+                        <Button Content="  Refresh  " DockPanel.Dock="Left" Name="CefSharp_RefreshBtn" Click="CefSharp_RefreshBtn_Click"></Button>
+                        <Button Content="  &gt;  " DockPanel.Dock="Left" Name="CefSharp_ForwardBtn" Click="CefSharp_ForwardBtn_Click"></Button>
+                        <TextBox HorizontalAlignment="Stretch" Margin="5 0 5 0" Name="CefSharp_AddressBox"></TextBox>
+                    </DockPanel>
+                    <wpf1:ChromiumWebBrowser Name="CefSharpView" Address="http://teamdev.com/dotnetbrowser"/>
+                </DockPanel>
             </TabItem>
         </TabControl>
-        <StatusBar Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="3">
+        <StatusBar Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3">
             <Label Content="Ready" Name="StatusLabel" FontSize="12" Foreground="Black"></Label>
         </StatusBar>
     </Grid>

@@ -13,20 +13,16 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="25*"></ColumnDefinition>
-            <ColumnDefinition Width="Auto"></ColumnDefinition>
             <ColumnDefinition Width="75*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="32"></RowDefinition>
         </Grid.RowDefinitions>
-        <GridSplitter Width="5" Grid.Column="1" Grid.RowSpan="3" ResizeDirection="Columns" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0"></GridSplitter>
-        
         <StackPanel Grid.Column="0" Grid.Row="0">
             <StackPanel>
-                <Label Content="Features" Background="CornflowerBlue"></Label>
-                <Button Content="Profiler" Click="ProfilerBtn_OnClick"></Button>
-                <Expander Header="Pages" IsExpanded="True" Name="PagesExpander" Expanded="Expander_OnExpanded">
+                <Label Content="Features" Background="{DynamicResource AccentColorBrush}"></Label>
+                <Expander Header="Pages" Name="PagesExpander" Expanded="Expander_OnExpanded">
                     <ListBox Name="PagesListBox" SelectionChanged="PagesListBox_SelectionChanged" Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Expander}}, Path=ActualWidth}">
                         <ListBoxItem>http://teamdev.com/</ListBoxItem>
                         <ListBoxItem>http://teamdev.com/dotnetbrowser</ListBoxItem>
@@ -36,11 +32,11 @@
                 </Expander>
                 <Expander Header="JavaScript" Name="JsExpander" Expanded="Expander_OnExpanded">
                     <StackPanel HorizontalAlignment="Stretch" Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Expander}}, Path=ActualWidth}">
-                        <Label Content="Execute script:" Foreground="Black"></Label>
+                        <Label Content="Execute script:"></Label>
                         <TextBox Name="JsExecuteTextBox" AcceptsReturn="True" TextWrapping="Wrap" Height="100" HorizontalAlignment="Stretch"></TextBox>
                         <DockPanel LastChildFill="True">
                             <CheckBox Name="JsExecuteResultCheckBox" IsChecked="False"></CheckBox>
-                            <Label Foreground="Black" Content="Out result"></Label>
+                            <Label Content="Out result"></Label>
                             <TextBox Name="JsExecuteResult" Margin="5 0 0 0" IsEnabled="False"></TextBox>
                         </DockPanel>
                         <Button Name="ExecuteJsBtn" Click="ExecuteJsBtn_Click">Execute</Button>
@@ -55,35 +51,32 @@
                 </Expander>
                 <Expander Header="DOM search" Name="DomSearchExpander" Expanded="Expander_OnExpanded">
                     <StackPanel Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Expander}}, Path=ActualWidth}">
-                        <DockPanel LastChildFill="True">
-                            <Label Content="Search element: " Foreground="Black"></Label>
-                            <TextBox Name="DomSearchTextBox"></TextBox>
-                        </DockPanel>
                         <StackPanel Orientation="Horizontal">
-                            <Label Foreground="Black" Content="Find DOM element: "></Label>
-                            <Button Name="SearchDomByTagBtn" Click="SearchDomByTagBtn_OnClick">By tag</Button>
-                            <Button Name="SearchDomByIdBtn" Click="SearchDomByIdBtn_OnClick">By Id</Button>
-                            <Button Name="SearchDomByclassBtn" Click="SearchDomByclassBtn_OnClick">By class</Button>
+                            <RadioButton Name="SearchDomByTagBtn" Click="SearchDomByTagBtn_OnClick" Margin="2">By tag</RadioButton>
+                            <RadioButton Name="SearchDomByIdBtn" Click="SearchDomByIdBtn_OnClick" Margin="2">By Id</RadioButton>
+                            <RadioButton Name="SearchDomByclassBtn" Click="SearchDomByclassBtn_OnClick" Margin="2">By class</RadioButton>
                         </StackPanel>
+                        <TextBox Name="DomSearchTextBox"></TextBox>
                         <ListBox Name="DomSearchResultsListBox" Height="200" HorizontalAlignment="Stretch"></ListBox>
                     </StackPanel>
                 </Expander>
                 <Expander Header="DOM manipulation" Name="DomManipulationExpander" Expanded="Expander_OnExpanded">
                     <StackPanel Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Expander}}, Path=ActualWidth}">
                         <DockPanel LastChildFill="True">
-                            <Label Content="Target element Id: " Foreground="Black"></Label>
+                            <Label Content="Target element Id: "></Label>
                             <TextBox Name="DomSetElementTextBox"></TextBox>
                         </DockPanel>
                         <StackPanel>
-                            <Label Content="Target element new Inner HTML:" Foreground="Black"></Label>
+                            <Label Content="Target element new Inner HTML:" ></Label>
                             <TextBox Name="DomSetInnerHtmlTextBox" Height="150" AcceptsReturn="True" TextWrapping="Wrap"></TextBox>
                             <Button Name="SetDomValueBtn" Click="SetDomValueBtn_OnClick">Set element Inner HTML</Button>
                         </StackPanel>
                     </StackPanel>
                 </Expander>
+                <Button Content="Profiler" Click="ProfilerBtn_OnClick"></Button>
             </StackPanel>
         </StackPanel>
-        <TabControl Grid.Column="2" Grid.Row="0" Name="BrowserTabCollection" SelectionChanged="Selector_OnSelectionChanged">
+        <TabControl Grid.Column="1" Grid.Row="0" Name="BrowserTabCollection" SelectionChanged="Selector_OnSelectionChanged">
             <TabItem Header="DotNetBrowser">
                 <DockPanel>
                     <DockPanel DockPanel.Dock="Top" LastChildFill="True" Height="24" Margin="0,0,0,5">
@@ -130,7 +123,7 @@
             </TabItem>
         </TabControl>
         <StatusBar Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3">
-            <Label Content="Ready" Name="StatusLabel" FontSize="12" Foreground="Black"></Label>
+            <Label Content="Ready" Name="StatusLabel" FontSize="12" ></Label>
         </StatusBar>
     </Grid>
 </Controls:MetroWindow>

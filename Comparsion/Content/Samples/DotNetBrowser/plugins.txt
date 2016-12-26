@@ -1,0 +1,17 @@
+﻿//Obtaining information about plugins
+PluginManager pluginManager = browser.PluginManager;
+foreach (PluginInfo pluginInfo in pluginManager.GetPluginsInfo())
+{
+    Console.WriteLine("Plugin name: " + pluginInfo.Name);
+}
+
+//Enable/disable filter smaple
+class CustomPluginFilter : PluginFilter
+{
+    public bool IsPluginAllowed(PluginInfo pluginInfo)
+    {
+        return pluginInfo.MimeTypes.Contains("application/pdf");
+    }
+}
+
+pluginManager.PluginFilter = new CustomPluginFilter();

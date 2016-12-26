@@ -1,0 +1,6 @@
+﻿DOMElement doc = browser1.GetDocument().DocumentElement;
+
+IEnumerable&lt;DOMNode&gt; element =  from child in doc.Children
+                                where  child.NodeType == DOMNodeType.ElementNode
+                                   &&  child.NodeValue.Contains("SomeText")
+                                select child;

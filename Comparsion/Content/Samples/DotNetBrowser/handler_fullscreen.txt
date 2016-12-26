@@ -1,0 +1,47 @@
+﻿public class SampleFullScreenHandler : FullScreenHandler
+{
+    private Form _fullScreenForm;
+    private Browser _browser;
+    private Control _control;
+
+    public SampleFullScreenHandler(Control control, Browser browser)
+    {
+        _control = control;
+        _browser = browser;
+    }
+
+    public void OnFullScreenEnter()
+    {
+        Form parentForm = _control.FindForm();
+
+        parentForm.BeginInvoke((Action)(() =>
+        {
+            _fullScreenForm = new Form
+            {
+                TopMost = true,
+                ShowInTaskbar = false,
+                FormBorderStyle = FormBorderStyle.None,
+                WindowState = FormWindowState.Maximized,
+                Owner = parentForm
+            };
+
+            LightweightBrowserView view = new LightweightBrowserView(_browser);
+            _fullScreenForm.Closed += (sender, args) => view.Dispose();
+
+            _fullScreenForm.Controls.Add(view);
+            _fullScreenForm.Show();
+        }));
+    }
+
+    public void OnFullScreenExit()
+    {
+        Form parentForm = _control.FindForm();
+
+        parentForm.BeginInvoke((Action)(() =>
+        {
+            _fullScreenForm.Controls.Clear();
+            _fullScreenForm.Hide();
+            _fullScreenForm.Close();
+        }));
+    }
+}

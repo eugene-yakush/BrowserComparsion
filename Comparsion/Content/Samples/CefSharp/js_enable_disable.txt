@@ -1,0 +1,2 @@
+﻿//Manipulating JS state is able only before browser component initialized
+browser = new ChromiumWebBrowser() {BrowserSettings = new BrowserSettings() {Javascript = CefState.Disabled}};

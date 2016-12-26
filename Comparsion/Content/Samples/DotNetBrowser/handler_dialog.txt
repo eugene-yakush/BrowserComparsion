@@ -1,0 +1,21 @@
+﻿public class CustomDialogHandler : DialogHandler 
+{
+    private DialogHandler defaultHandler;
+
+    public CustomDialogHandler(DialogHandler defaultHandler)
+    {
+        this.defaultHandler = defaultHandler;
+    }
+
+    public CloseStatus OnBeforeUnload(UnloadDialogParams parameters) {
+        CloseStatus returnValue = CloseStatus.CANCEL;
+        String title = "Confirm Navigation";
+        String message = parameters.Message;
+        MessageBoxResult result = MessageBox.Show(message, title, MessageBoxButton.YesNo, MessageBoxImage.Question);
+        if (result == MessageBoxResult.Yes)
+        {
+            returnValue = CloseStatus.OK;
+        }
+        return returnValue;
+    }
+}

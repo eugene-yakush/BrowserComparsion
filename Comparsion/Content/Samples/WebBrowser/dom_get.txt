@@ -1,0 +1,4 @@
+﻿HtmlElementCollection elements = browser.Document.GetElementsByTagName("div");
+
+//If you need to find only first HTML element in the document use the following approach:
+HtmlElement element = browser.Document.GetElementById("test");

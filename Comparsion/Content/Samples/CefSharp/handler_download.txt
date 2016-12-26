@@ -1,0 +1,12 @@
+﻿class SampleDownloadHandler : IDownloadHandler
+{
+    public void OnBeforeDownload(IBrowser browser, DownloadItem downloadItem, IBeforeDownloadCallback callback)
+    {
+        callback.Continue(@"path\to\file"+downloadItem.SuggestedFileName, false);
+    }
+
+    public void OnDownloadUpdated(IBrowser browser, DownloadItem downloadItem, IDownloadItemCallback callback)
+    {
+            
+    }
+}

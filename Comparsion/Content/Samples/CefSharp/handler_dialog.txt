@@ -1,0 +1,8 @@
+﻿class SampleDialogHandler : IDialogHandler
+{
+    public bool OnFileDialog(IWebBrowser browserControl, IBrowser browser, CefFileDialogMode mode, string title, string defaultFilePath, List<string> acceptFilters, int selectedAcceptFilter, IFileDialogCallback callback)
+    {
+        //Here you can handle FileDialog parameters
+        return false;
+    }
+}

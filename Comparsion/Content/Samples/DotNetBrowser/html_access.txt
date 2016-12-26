@@ -1,0 +1,2 @@
+﻿string html = browser.GetHTML();
+browser.LoadHTML(html);

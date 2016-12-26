@@ -1,0 +1,447 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8"/>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="Content/bootstrap.min.css">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="Content/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="Content/prism.css">
+</head>
+<body>
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="Scripts/jquery-1.9.1.min.js"></script>
+<script src="Scripts/bootstrap.min.js"></script>
+<script src="Scripts/prism.js"></script>
+<script src="Scripts/samples.js"></script>
+
+
+
+
+<div class="container">
+
+    <h1>Comparison</h1><hr/>
+
+<table class="table table-bordered">
+<tr>
+    <th>Feature</th>
+    <th>DotNetBrowser</th>
+    <th>WebBrowser</th>
+    <th>Awesomium</th>
+    <th>CefSharp</th>
+</tr>
+        
+<!--SECTION: GENERAL INFO-->
+<tr>
+    <td colspan="5" style="text-align: center;"><b>General information</b></td>
+</tr>
+<tr>
+    <td><b>License</b></td>
+    <td>30-day free trial. <br>Proprietary, with free academic <br>and open-source licences</td>
+    <td>Free. Proprietary</td>
+    <td>Free if your revenue up to $100K <br>(or costs $2900). Proprietary</td>
+    <td>Free. Open-source (github)</td>
+</tr>
+<tr>
+    <td><b>CPU</b></td>
+    <td>Any CPU</td>
+    <td>Any CPU</td>
+    <td>x86</td>
+    <td>x86 / x64 Separated</td>
+</tr>
+<tr>
+    <td><b>Engine</b></td>
+    <td>Chromium</td>
+    <td>IE</td>
+    <td>Chromium</td>
+    <td>Chromium</td>
+</tr>
+<tr>
+    <td><b>Libraries size</b></td>
+    <td>52 MB</td>
+    <td>0 MB (included in Win)</td>
+    <td>40.5 MB</td>
+    <td>81.3 MB</td>
+</tr>
+<tr>
+    <td><b>.NET Framework</b></td>
+    <td>4.0+</td>
+    <td>2.0</td>
+    <td>4.0+</td>
+    <td>4.5+</td>
+</tr>
+<tr>
+    <td><b></b></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+<!--SECTION: SYSTEM SUPPORT-->
+<tr>
+    <td colspan="5" style="text-align: center;"><b>System support</b></td>
+</tr>
+<tr>
+    <td><b>Windows</b></td>
+    <td><img width="32" height="32" src="Content/Images/half.png" />&nbsp;7, 8, 8.1, 10</td>
+    <td><img width="32" height="32" src="Content/Images/accepted.png" />&nbsp;XP, 7, 8, 8.1, 10</td>
+    <td><img width="32" height="32" src="Content/Images/half.png" />&nbsp;7, 8, 8.1, 10</td>
+    <td><img width="32" height="32" src="Content/Images/half.png" />&nbsp;7, 8, 8.1, 10</td>
+</tr>
+<tr>
+    <td><b>Mac</b></td>
+    <td><img width="32" height="32" src="Content/Images/error.png" />&nbsp;Not supported</td>
+    <td><img width="32" height="32" src="Content/Images/error.png" />&nbsp;Not supported</td>
+    <td><img width="32" height="32" src="Content/Images/accepted.png" />&nbsp;Supported</td>
+    <td><img width="32" height="32" src="Content/Images/error.png" />&nbsp;Not supported</td>
+</tr>
+<tr>
+    <td><b>Linux</b></td>
+    <td><img width="32" height="32" src="Content/Images/error.png" />&nbsp;Not supported</td>
+    <td><img width="32" height="32" src="Content/Images/error.png" />&nbsp;Not supported</td>
+    <td><img width="32" height="32" src="Content/Images/accepted.png" />&nbsp;Supported</td>
+    <td><img width="32" height="32" src="Content/Images/error.png" />&nbsp;Not supported</td>
+</tr>
+
+<!--SECTION: DOCUMENT ACCESS-->
+
+<tr>
+    <td colspan="5" style="text-align: center;"><b>Document access</b></td>
+</tr>
+        
+<tr>
+    <td><b>HTML access</b></td>
+    <td>
+        <img width="32" height="32" src="Content/Images/accepted.png" />
+        &nbsp;<button class="btn btn-default btn-sm" type="button" data-toggle="modal" data-target="#sample_block"
+                      onclick="LoadComparsion('DotNetBrowser: Get DOM element', 'DotNetBrowser/html_access.txt');">
+            Sample
+        </button><br />
+    </td>
+    <td>
+        <img width="32" height="32" src="Content/Images/accepted.png" />
+        &nbsp;<button class="btn btn-default btn-sm" type="button" data-toggle="modal" data-target="#sample_block"
+                      onclick="LoadComparsion('WebBrowser: Get DOM element', 'WebBrowser/html_access.txt');">
+            Sample
+        </button><br />
+    </td>
+    <td>
+        <img width="32" height="32" src="Content/Images/accepted.png" />
+        &nbsp;<button class="btn btn-default btn-sm" type="button" data-toggle="modal" data-target="#sample_block"
+                      onclick="LoadComparsion('WebBrowser: Get DOM element', 'Awesomium/html_access.txt');">
+            Sample
+        </button><br />
+    </td>
+    <td>
+        <img width="32" height="32" src="Content/Images/accepted.png" />
+        &nbsp;<button class="btn btn-default btn-sm" type="button" data-toggle="modal" data-target="#sample_block"
+                      onclick="LoadComparsion('WebBrowser: Get DOM element', 'CefSharp/html_access.txt');">
+            Sample
+        </button><br />
+    </td>
+</tr>
+<tr>
+    <td><b>Access to existing elements</b></td>
+    <td>
+        <img width="32" height="32" src="Content/Images/accepted.png"/>
+        &nbsp;<button class="btn btn-default btn-sm" type="button" data-toggle="modal" data-target="#sample_block"
+                      onclick="LoadComparsion('DotNetBrowser: Get DOM element', 'DotNetBrowser/dom_get.txt');">
+            Sample
+        </button><br/>
+    </td>
+    <td>
+        <img width="32" height="32" src="Content/Images/accepted.png"/>
+        &nbsp;<button class="btn btn-default btn-sm" type="button" data-toggle="modal" data-target="#sample_block"
+                      onclick="LoadComparsion('WebBrowser: Get DOM element', 'WebBrowser/dom_get.txt');">
+            Sample
+        </button><br/>
+    </td>
+    <td><img width="32" height="32" src="Content/Images/error.png"/>&nbsp;Not supported</td>
+    <td><img width="32" height="32" src="Content/Images/error.png"/>&nbsp;Not supported</td>
+</tr>
+
+<tr>
+    <td><b>Modify existing elements</b></td>
+    <td>
+        <img width="32" height="32" src="Content/Images/accepted.png"/>
+        &nbsp;<button class="btn btn-default btn-sm" type="button" data-toggle="modal" data-target="#sample_block"
+                      onclick="LoadComparsion('DotNetBrowser: Set DOM element', 'DotNetBrowser/dom_set.txt');">
+            Sample
+        </button><br/>
+    </td>
+    <td>
+        <img width="32" height="32" src="Content/Images/accepted.png"/>
+        &nbsp;<button class="btn btn-default btn-sm" type="button" data-toggle="modal" data-target="#sample_block"
+                      onclick="LoadComparsion('WebBrowser: Set DOM element', 'WebBrowser/dom_set.txt');">
+            Sample
+        </button><br/>
+    </td>
+    <td><img width="32" height="32" src="Content/Images/error.png"/>&nbsp;Not supported</td>
+    <td><img width="32" height="32" src="Content/Images/error.png"/>&nbsp;Not supported</td>
+</tr>
+        
+
+<tr>
+    <td><b>XPath evaluation</b></td>
+    <td><img width="32" height="32" src="Content/Images/accepted.png"/>
+        &nbsp;<button class="btn btn-default btn-sm" type="button" data-toggle="modal" data-target="#sample_block"
+                      onclick="LoadComparsion('DotNetBrowser: Set DOM element', 'DotNetBrowser/xpath_evaluate.txt');">
+            Sample
+        </button><br/></td>
+    <td><img width="32" height="32" src="Content/Images/error.png" />&nbsp;Not supported</td>
+    <td><img width="32" height="32" src="Content/Images/error.png" />&nbsp;Not supported</td>
+    <td><img width="32" height="32" src="Content/Images/error.png" />&nbsp;Not supported</td>
+</tr>
+
+<tr>
+    <td><b>LINQ To Entity</b></td>
+    <td><img width="32" height="32" src="Content/Images/accepted.png"/>
+        &nbsp;<button class="btn btn-default btn-sm" type="button" data-toggle="modal" data-target="#sample_block"
+                      onclick="LoadComparsion('DotNetBrowser: Set DOM element', 'DotNetBrowser/linq_to_entity.txt');">
+            Sample
+        </button><br/></td>
+    <td><img width="32" height="32" src="Content/Images/error.png" />&nbsp;Not supported</td>
+    <td><img width="32" height="32" src="Content/Images/error.png" />&nbsp;Not supported</td>
+    <td><img width="32" height="32" src="Content/Images/error.png" />&nbsp;Not supported</td>
+</tr>
+
+
+<!--SECTION: DOCUMENT ACCESS-->
+<tr>
+    <td colspan="5" style="text-align: center;"><b>Javascript integration</b></td>
+</tr>
+<tr>
+    <td><b>Enable/disable javascript</b></td>
+    <td><img width="32" height="32" src="Content/Images/accepted.png"/>
+        &nbsp;<button class="btn btn-default btn-sm" type="button" data-toggle="modal" data-target="#sample_block"
+                      onclick="LoadComparsion('DotNetBrowser: Set DOM element', 'DotNetBrowser/js_enable_disable.txt');">
+            Sample
+        </button><br/></td>
+    <td><img width="32" height="32" src="Content/Images/half.png"/>&nbsp;Only using the global settings</td>
+    <td><img width="32" height="32" src="Content/Images/half.png" />&nbsp;Only using the WebSession initializer</td>
+    <td><img width="32" height="32" src="Content/Images/accepted.png"/>
+        &nbsp;<button class="btn btn-default btn-sm" type="button" data-toggle="modal" data-target="#sample_block"
+                      onclick="LoadComparsion('DotNetBrowser: Set DOM element', 'CefSharp/js_enable_disable.txt');">
+            Sample
+        </button><br/></td>
+</tr>
+<tr>
+    <td><b>Executing javascript</b></td>
+    <td><img width="32" height="32" src="Content/Images/accepted.png"/>
+        &nbsp;<button class="btn btn-default btn-sm" type="button" data-toggle="modal" data-target="#sample_block"
+                      onclick="LoadComparsion('DotNetBrowser: Set DOM element', 'DotNetBrowser/js_execute.txt');">
+            Sample
+        </button><br/></td>
+    <td><img width="32" height="32" src="Content/Images/error.png" />&nbsp;Not supported</td>
+    <td><img width="32" height="32" src="Content/Images/accepted.png"/>
+        &nbsp;<button class="btn btn-default btn-sm" type="button" data-toggle="modal" data-target="#sample_block"
+                      onclick="LoadComparsion('DotNetBrowser: Set DOM element', 'Awesomium/js_execute.txt');">
+            Sample
+        </button><br/></td>
+    <td><img width="32" height="32" src="Content/Images/accepted.png"/>
+        &nbsp;<button class="btn btn-default btn-sm" type="button" data-toggle="modal" data-target="#sample_block"
+                      onclick="LoadComparsion('DotNetBrowser: Set DOM element', 'CefSharp/js_execute.txt');">
+            Sample
+        </button><br/></td>
+</tr>
+<tr>
+    <td><b>Javascript Bridge</b></td>
+    <td><img width="32" height="32" src="Content/Images/accepted.png"/>
+        &nbsp;<button class="btn btn-default btn-sm" type="button" data-toggle="modal" data-target="#sample_block"
+                      onclick="LoadComparsion('DotNetBrowser: Set DOM element', 'DotNetBrowser/js_bridge.txt');">
+            Sample
+        </button><br/></td>
+    <td><img width="32" height="32" src="Content/Images/error.png" />&nbsp;Not supported</td>
+    <td><img width="32" height="32" src="Content/Images/error.png" />&nbsp;Not supported</td>
+    <td><img width="32" height="32" src="Content/Images/accepted.png"/>
+        &nbsp;<button class="btn btn-default btn-sm" type="button" data-toggle="modal" data-target="#sample_block"
+                      onclick="LoadComparsion('DotNetBrowser: Set DOM element', 'CefSharp/js_bridge.txt');">
+            Sample
+        </button><br/></td>
+</tr>
+
+
+<!--SECTION: EVENT MODEL-->
+<tr>
+    <td colspan="5" style="text-align: center;"><b>Event model</b></td>
+</tr>
+<tr>
+    <td><b>Frame loaded</b></td>
+    <td><img width="32" height="32" src="Content/Images/accepted.png" />&nbsp;</td>
+    <td><img width="32" height="32" src="Content/Images/error.png" />&nbsp;</td>
+    <td><img width="32" height="32" src="Content/Images/accepted.png" />&nbsp;</td>
+    <td><img width="32" height="32" src="Content/Images/accepted.png" />&nbsp;</td>
+</tr>
+<tr>
+    <td><b>Document loaded</b></td>
+    <td><img width="32" height="32" src="Content/Images/accepted.png" />&nbsp;</td>
+    <td><img width="32" height="32" src="Content/Images/accepted.png" />&nbsp;</td>
+    <td><img width="32" height="32" src="Content/Images/accepted.png" />&nbsp;</td>
+    <td><img width="32" height="32" src="Content/Images/accepted.png" />&nbsp;</td>
+</tr>
+<tr>
+    <td><b>Status changed</b></td>
+    <td><img width="32" height="32" src="Content/Images/accepted.png" />&nbsp;</td>
+    <td><img width="32" height="32" src="Content/Images/error.png" />&nbsp;</td>
+    <td><img width="32" height="32" src="Content/Images/accepted.png" />&nbsp;</td>
+    <td><img width="32" height="32" src="Content/Images/error.png" />&nbsp;</td>
+</tr>
+<tr>
+    <td><b>Title changed</b></td>
+    <td><img width="32" height="32" src="Content/Images/accepted.png" />&nbsp;</td>
+    <td><img width="32" height="32" src="Content/Images/accepted.png" />&nbsp;</td>
+    <td><img width="32" height="32" src="Content/Images/error.png" />&nbsp;</td>
+    <td><img width="32" height="32" src="Content/Images/accepted.png" />&nbsp;</td>
+</tr>
+<tr>
+    <td><b>Element events</b></td>
+    <td><img width="32" height="32" src="Content/Images/accepted.png" />&nbsp;</td>
+    <td><img width="32" height="32" src="Content/Images/error.png" />&nbsp;</td>
+    <td><img width="32" height="32" src="Content/Images/error.png" />&nbsp;</td>
+    <td><img width="32" height="32" src="Content/Images/error.png" />&nbsp;</td>
+</tr>
+
+<!--SECTION: HANDLERS-->
+<tr>
+    <td colspan="5" style="text-align: center;"><b>Managers and handlers</b></td>
+</tr>
+<tr>
+    <td><b>Download</b></td>
+    <td><img width="32" height="32" src="Content/Images/accepted.png"/>
+        &nbsp;Custom&nbsp;<button class="btn btn-default btn-sm" type="button" data-toggle="modal" data-target="#sample_block"
+                                  onclick="LoadComparsion('DotNetBrowser: Set DOM element', 'DotNetBrowser/handler_download.txt');">
+            Sample
+        </button><br/></td>
+    <td><img width="32" height="32" src="Content/Images/half.png" />&nbsp;Predefined</td>
+    <td><img width="32" height="32" src="Content/Images/half.png" />&nbsp;Predefined</td>
+    <td><img width="32" height="32" src="Content/Images/accepted.png"/>
+        &nbsp;Custom&nbsp;<button class="btn btn-default btn-sm" type="button" data-toggle="modal" data-target="#sample_block"
+                                  onclick="LoadComparsion('DotNetBrowser: Set DOM element', 'CefSharp/handler_download.txt');">
+            Sample
+        </button><br/></td>
+</tr>
+<tr>
+    <td><b>Popup</b></td>
+    <td><img width="32" height="32" src="Content/Images/accepted.png"/>
+        &nbsp;Custom&nbsp;<button class="btn btn-default btn-sm" type="button" data-toggle="modal" data-target="#sample_block"
+                                  onclick="LoadComparsion('DotNetBrowser: Set DOM element', 'DotNetBrowser/handler_popup.txt');">
+            Sample
+        </button><br/></td>
+    <td><img width="32" height="32" src="Content/Images/half.png" />&nbsp;Predefined</td>
+    <td><img width="32" height="32" src="Content/Images/half.png" />&nbsp;Predefined</td>
+    <td><img width="32" height="32" src="Content/Images/half.png" />&nbsp;Predefined</td>
+</tr>
+<tr>
+    <td><b>Fullscreen</b></td>
+    <td><img width="32" height="32" src="Content/Images/accepted.png"/>
+        &nbsp;Custom&nbsp;<button class="btn btn-default btn-sm" type="button" data-toggle="modal" data-target="#sample_block"
+                                  onclick="LoadComparsion('DotNetBrowser: Set DOM element', 'DotNetBrowser/handler_fullscreen.txt');">
+            Sample
+        </button><br/></td>
+    <td><img width="32" height="32" src="Content/Images/half.png" />&nbsp;Predefined</td>
+    <td><img width="32" height="32" src="Content/Images/half.png" />&nbsp;Predefined</td>
+    <td><img width="32" height="32" src="Content/Images/accepted.png"/>
+        &nbsp;Custom&nbsp;<button class="btn btn-default btn-sm" type="button" data-toggle="modal" data-target="#sample_block"
+                                  onclick="LoadComparsion('DotNetBrowser: Set DOM element', 'CefSharp/handler_fullscreen.txt');">
+            Sample
+        </button><br/></td>
+</tr>
+<tr>
+    <td><b>Dialog</b></td>
+    <td><img width="32" height="32" src="Content/Images/accepted.png"/>
+        &nbsp;Custom&nbsp;<button class="btn btn-default btn-sm" type="button" data-toggle="modal" data-target="#sample_block"
+                                  onclick="LoadComparsion('DotNetBrowser: Set DOM element', 'DotNetBrowser/handler_dialog.txt');">
+            Sample
+        </button><br/></td>
+    <td><img width="32" height="32" src="Content/Images/half.png" />&nbsp;Predefined</td>
+    <td><img width="32" height="32" src="Content/Images/half.png" />&nbsp;Predefined</td>
+    <td>
+        <img width="32" height="32" src="Content/Images/accepted.png" />
+        &nbsp;Custom&nbsp;<button class="btn btn-default btn-sm" type="button" data-toggle="modal" data-target="#sample_block"
+                                  onclick="LoadComparsion('DotNetBrowser: Set DOM element', 'CefSharp/handler_dialog.txt');">
+            Sample
+        </button><br />
+    </td>
+</tr>
+
+<tr>
+    <td><b>Plugins</b></td>
+    <td><img width="32" height="32" src="Content/Images/accepted.png"/>
+        &nbsp;Custom&nbsp;<button class="btn btn-default btn-sm" type="button" data-toggle="modal" data-target="#sample_block"
+                                  onclick="LoadComparsion('DotNetBrowser: Set DOM element', 'DotNetBrowser/plugins.txt');">
+            Sample
+        </button><br/></td>
+    <td><img width="32" height="32" src="Content/Images/error.png" />&nbsp;Not supported</td>
+    <td><img width="32" height="32" src="Content/Images/error.png" />&nbsp;Not supported</td>
+    <td><img width="32" height="32" src="Content/Images/error.png" />&nbsp;Not supported</td>
+</tr>
+
+<!--SECTION: PERFORMANCE-->
+<tr>
+    <td colspan="5" style="text-align: center;"><b>Performance and page loading speed (average of 30 loads in milliseconds)</b></td>
+</tr>
+<tr>
+    <td><b>https://www.google.com/</b></td>
+    <td>388</td>
+    <td>748</td>
+    <td>751</td>
+    <td>580</td>
+</tr>  
+<tr>
+    <td><b>https://www.github.com/</b></td>
+    <td>586</td>
+    <td>1187</td>
+    <td>1584</td>
+    <td>2044</td>
+</tr>  
+<tr>
+    <td><b>https://www.facebook.com/</b></td>
+    <td>890</td>
+    <td>1885</td>
+    <td>2605</td>
+    <td>2971</td>
+</tr>  
+<tr>
+    <td><b>https://www.youtube.com/</b></td>
+    <td>423</td>
+    <td>2189</td>
+    <td>1660</td>
+    <td>1824</td>
+</tr>  
+<tr>
+    <td><b>https://www.teamdev.com/dotnetbrowser</b></td>
+    <td>970</td>
+    <td>3923</td>
+    <td>2707</td>
+    <td>5128</td>
+</tr>
+              
+</table>
+
+
+<!--POPUP SECTION-->
+<div id="sample_block" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" type="button" data-dismiss="modal">×</button>
+                <h4 class="modal-title" id="sample_title">Code sample</h4>
+            </div>
+            <div class="modal-body">
+                <pre class="prettyprint linenums" id="sample_body">
+                </pre>
+            </div>
+            <div class="modal-footer"><button class="btn btn-default" type="button" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</div>
+
+    
+</body>
+</html>

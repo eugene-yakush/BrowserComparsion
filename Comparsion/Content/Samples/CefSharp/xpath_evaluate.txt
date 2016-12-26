@@ -1,0 +1,15 @@
+﻿DOMDocument document = browser.GetDocument();
+XPathResult result = document.Evaluate("count(//div)");
+// If the expression is not a valid XPath expression or the document
+// element is not available, we'll get an error.
+if (result.IsError)
+{
+	Console.WriteLine("Error: " + result.ErrorMessage);
+	return;
+}
+
+// Make sure that result is a number.
+if (result.IsNumber)
+{
+	Console.WriteLine("Result: " + result.Number);
+}

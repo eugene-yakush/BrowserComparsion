@@ -1,0 +1,2 @@
+﻿string html = browser.GetSourceAsync().Result;
+browser.LoadHtml(html, "someUrl"); //Its required to set a displaying URL

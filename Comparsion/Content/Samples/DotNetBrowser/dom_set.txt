@@ -1,0 +1,5 @@
+﻿List<DOMNode> divs = document.GetElementsByTagName("div");
+
+DOMElement div = document.GetElementById("myId");
+div.SetAttribute("attribute1", "somevalue");
+div.SetInnerText("some text");

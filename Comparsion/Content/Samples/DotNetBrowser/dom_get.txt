@@ -1,0 +1,11 @@
+﻿List<DOMNode> divs = document.GetElementsByTagName("div");
+
+//If you need to find only first HTML element in the document use the following approach:
+DOMElement div = document.GetElementById("myId");
+
+//In general you can search for HTML elements using different conditions:
+
+DOMElement element = document.GetElementById("myId");
+List<DOMNode> elements = document.GetElementByTagName("div");
+List<DOMNode>elements = document.GetElementByClassName("myClass");
+List<DOMNode> elements = document.GetElementByName("myName");

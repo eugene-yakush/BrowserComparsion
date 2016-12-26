@@ -1,0 +1,11 @@
+﻿public class BoundObject
+{
+    public string MyProperty { get; set; }
+    public void MyMethod()
+    {
+        // Do something
+    }
+}
+
+//After ChromiumWebBrowser has been created
+browser.RegisterJsObject("bound", new BoundObject());

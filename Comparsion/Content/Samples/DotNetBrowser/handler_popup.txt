@@ -1,0 +1,14 @@
+﻿public class CustomPopupHandler : PopupHandler
+{
+    private FrameworkElement control;
+
+    public CustomPopupHandler(FrameworkElement control)
+    {
+        this.control = control;
+    }
+
+    public PopupContainer HandlePopup(PopupParams popupParams)
+    {
+        return new CustomPopupContainer(control); //Here you can write your own implementation
+    }
+}

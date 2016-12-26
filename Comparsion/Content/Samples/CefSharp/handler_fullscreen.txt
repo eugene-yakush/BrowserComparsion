@@ -1,0 +1,14 @@
+﻿class SampleFullscreenHandler : IDisplayHandler
+    {
+        public void OnFullscreenModeChange(IWebBrowser browserControl, IBrowser browser, bool fullscreen)
+        {
+            if (fullscreen)
+            {
+                Window window = new Window();
+                StackPanel panel = new StackPanel();
+                panel.Children.Add(browserControl as Control);
+                window.Content = panel;
+                window.Closed += (sender, args) => panel.Children.Clear();
+            }
+        }
+    }

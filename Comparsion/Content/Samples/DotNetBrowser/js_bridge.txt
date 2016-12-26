@@ -1,0 +1,8 @@
+﻿browser.FinishLoadingFrameEvent += delegate(object sender, FinishLoadingEventArgs e)
+{
+	if (e.IsMainFrame)
+	{
+		JSValue value = browser.ExecuteJavaScriptAndReturnValue("window");
+        value.AsObject().SetProperty("Account", new Account());
+    }
+};

@@ -1,0 +1,2 @@
+﻿string html = browser.DocumentText;
+browser.DocumentText = html;

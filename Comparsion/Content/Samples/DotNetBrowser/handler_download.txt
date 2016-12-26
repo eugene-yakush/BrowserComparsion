@@ -1,0 +1,25 @@
+﻿class SampleDownloadHandler : DownloadHandler
+{
+    private ManualResetEvent waitEvent = new ManualResetEvent(false);
+
+    public bool AllowDownload(DownloadItem download)
+    {
+        download.DownloadEvent += delegate(object sender, DownloadEventArgs e)
+        {
+            DownloadItem downloadItem = e.Item;
+            if (downloadItem.Completed)
+            {
+                Console.Out.WriteLine("Download is completed!");
+                waitEvent.Set();
+            }
+        };
+        Console.Out.WriteLine("Destination file: " +
+                download.DestinationFile);                
+        return true;
+    }
+
+    public void Wait()
+    {
+        waitEvent.WaitOne();
+    }
+}

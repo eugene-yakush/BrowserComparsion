@@ -1,0 +1,2 @@
+﻿HtmlElement element = browser.Document.GetElementById("test");
+element.InnerHtml = "&lt;div&gt;Some content&lt;/div&gt;";

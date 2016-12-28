@@ -1,0 +1,3 @@
+﻿EO.WebEngine.BrowserOptions options = new EO.WebEngine.BrowserOptions();
+options.AllowJavaScript = false;
+browser.SetOptions(options);

@@ -1,0 +1,13 @@
+﻿//The new WebView has already been created (e.WebView). Here we
+//associates it with a new WebViewItem object and creates a
+//new tab button for it (by adding it to m_Pages)
+WebViewItem item = NewWebViewItem(e.WebView);
+m_WebViewsHost.Items.Add(item);
+m_Pages.Add(item.Page);
+
+//Select the newly created tab
+mainTabs.SelectedIndex = m_Pages.Count - 1;
+
+//Signifies that we accept the new WebView. Without this line
+//the newly created WebView will be immediately destroyed
+e.Accepted = true;

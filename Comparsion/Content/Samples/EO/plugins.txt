@@ -1,0 +1,13 @@
+﻿// You can place additional plugin DLLs directly inside the same 
+// directory as EO.WebBrowser.dll, or place them in a different 
+// folders, then include the folder in 
+// EO.WebBrowser.Runtime.AdditionalPluginsDirs.
+
+EO.WebBrowser.Runtime.AdditionalPluginsDirs = new string[]{"c:\\plugins"};
+
+// By default, EO.WebBrowser automatically scans the system for 
+// popular plug-ins. If you do not wish EO.WebBrowser to 
+// automatically scan for these plug-ins, you can set 
+// EO.WebBrowser.Runtime.AutoScanCommonPlugins to false.
+
+EO.WebBrowser.Runtime.AutoScanCommonPlugins = false;

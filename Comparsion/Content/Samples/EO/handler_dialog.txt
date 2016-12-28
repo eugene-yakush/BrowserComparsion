@@ -1,0 +1,41 @@
+﻿void WebView_JSDialog(object sender, JSDialogEventArgs e)
+{
+    switch (e.DialogType)
+    {
+        case JSDialogType.Prompt:
+            //Create a dialog
+            JSPrompt dlg = new JSPrompt(e);
+            dlg.Owner = this;
+            dlg.Message = e.MessageText;
+            dlg.Value = e.DefaultPromptText;
+
+            //Display the dialog for user input
+            Nullable<bool> result = dlg.ShowDialog();
+
+            //Call e.OK/e.Cancel based on whether user clicked "OK" in the dialog
+            if (result.HasValue && !result.Value)
+                e.OK(dlg.Value);
+            else
+                e.Cancel();
+            break;
+
+        case JSDialogType.Alert:
+            //Display a message box and then call e.OK to notify the browser
+            //engine that user has confirmed the dialog. This is important
+            //because either OK or Cancel must be called to prevent the default
+            //dialog
+            MessageBox.Show(e.MessageText, "JavaScript Message", MessageBoxButton.OK);
+            e.OK();
+            break;
+
+        case JSDialogType.BeforeUnload:
+        case JSDialogType.Confirm:
+            //Display a Yes/No message box and call e.OK/e.Cancel according
+            //to user's selection
+            if (MessageBox.Show(e.MessageText, "JavaScript Message", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                e.OK();
+            else
+                e.Cancel();
+            break;
+    }
+}

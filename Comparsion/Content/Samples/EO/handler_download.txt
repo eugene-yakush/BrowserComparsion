@@ -1,0 +1,24 @@
+﻿browser.BeforeDownload += WebView_BeforeDownload;
+browser.DownloadCompleted += WebView_DownloadCompleted;
+browser.DownloadUpdated += WebView_DownloadUpdated;
+browser.DownloadCanceled += WebView_DownloadCanceled;
+
+private void WebView_DownloadCanceled(object sender, DownloadEventArgs e)
+{
+	throw new NotImplementedException();
+}
+
+private void WebView_DownloadUpdated(object sender, DownloadEventArgs e)
+{
+	throw new NotImplementedException();
+}
+
+private void WebView_DownloadCompleted(object sender, DownloadEventArgs e)
+{
+	throw new NotImplementedException();
+}
+
+private void WebView_BeforeDownload(object sender, BeforeDownloadEventArgs e)
+{
+	throw new NotImplementedException();
+}

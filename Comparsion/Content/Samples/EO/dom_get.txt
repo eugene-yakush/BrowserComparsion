@@ -1,0 +1,8 @@
+﻿//Get the document
+HtmlDocument doc = browser.Document;
+
+//Get the button
+HtmlElement button = doc.GetElementById("Button1");
+
+//Click the button
+button.InvokeMember("click");

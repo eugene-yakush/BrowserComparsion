@@ -1,0 +1,12 @@
+﻿browser.RegisterJSExtensionFunction("demoAbout", new JSExtInvokeHandler(WebView_JSDemoAbout))
+
+//Extension handler function
+void WebView_JSDemoAbout(object sender, JSExtInvokeArgs e)
+{
+    string browserEngine = e.Arguments[0] as string;
+    string url = e.Arguments[1] as string;
+    MessageBox.Show("Browser Engine: " + browserEngine + ", Url:" + url);
+}
+
+//This JS code will call WebView_JSDemoAbout
+demoAbout(window.navigator.appVersion, document.URL);
